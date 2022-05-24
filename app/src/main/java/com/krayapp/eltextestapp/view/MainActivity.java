@@ -1,8 +1,10 @@
-package com.krayapp.eltextestapp;
+package com.krayapp.eltextestapp.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.krayapp.eltextestapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
