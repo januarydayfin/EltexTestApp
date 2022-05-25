@@ -2,12 +2,15 @@ package com.krayapp.eltextestapp.view;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.krayapp.eltextestapp.Constant;
 import com.krayapp.eltextestapp.Fabric;
+import com.krayapp.eltextestapp.NetworkListener;
 import com.krayapp.eltextestapp.R;
 
 
@@ -19,21 +22,26 @@ public class MainActivity extends AppCompatActivity {
         Fabric.createMainRepo();
         setContentView(R.layout.activity_main);
         SharedPreferences sharedPref = getSharedPreferences(Constant.APP_PREFERENCES, Context.MODE_PRIVATE);
+        NetworkListener networkListener = new NetworkListener((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE));
 
-        if (sharedPref.contains(Constant.SHARED_PREF_TOKEN_KEY)) {
-            String token = sharedPref.getString(Constant.SHARED_PREF_TOKEN_KEY, "null");
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, UserFragment.newInstance(token))
-                    .commitAllowingStateLoss();
-        } else {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, new MainFragment())
-                    .commitAllowingStateLoss();
+        if (networkListener.isOnline()){
+            if (sharedPref.contains(Constant.SHARED_PREF_TOKEN_KEY)) {
+                String token = sharedPref.getString(Constant.SHARED_PREF_TOKEN_KEY, "null");
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container, UserFragment.newInstance(token))
+                        .commitAllowingStateLoss();
+            } else {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container, new MainFragment())
+                        .commitAllowingStateLoss();
+            }
+        }else {
+            Toast.makeText(this, "Подключитесь к сети", Toast.LENGTH_SHORT).show();
         }
-    }
 
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -41,4 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.container, new MainFragment())
                 .commitAllowingStateLoss();
     }
+
+
 }
