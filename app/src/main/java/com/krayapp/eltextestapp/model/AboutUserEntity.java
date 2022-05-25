@@ -1,5 +1,6 @@
 package com.krayapp.eltextestapp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AboutUserEntity {
@@ -9,10 +10,11 @@ public class AboutUserEntity {
     private List<String> permissions;
 
 
-    public AboutUserEntity(String roleId, String username, String email){
+    public AboutUserEntity(String roleId, String username, String email, List<String> permissions){
         this.roleId = roleId;
         this.username = username;
         this.email = email;
+        this.permissions = permissions;
     }
 
     public String getEmail() {
@@ -24,5 +26,7 @@ public class AboutUserEntity {
     public String getUsername() {
         return username;
     }
-
+    public List<String> getPermissions() {
+        return permissions;
+    }
 }
