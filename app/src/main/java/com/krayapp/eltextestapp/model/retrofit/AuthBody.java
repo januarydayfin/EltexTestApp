@@ -10,16 +10,4 @@ public class AuthBody {
         this.username = username;
         this.password = password;
     }
-
-    public String getGrant_type() {
-        return grant_type;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
 }

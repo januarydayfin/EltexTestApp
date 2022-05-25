@@ -14,20 +14,21 @@ import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EltexApi {
-    private final OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new AuthInterceptor()).build();
+    private static final OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new AuthInterceptor()).build();
 
-    public RetrofitService getApi() {
+    public static RetrofitService getApi() {
         return new Retrofit.Builder()
-                .client(client)
                 .baseUrl(Constant.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(RetrofitService.class);
     }
 
-    protected class AuthInterceptor implements Interceptor {
+    protected static class AuthInterceptor implements Interceptor {
         private String credentials;
 
         public AuthInterceptor() {
