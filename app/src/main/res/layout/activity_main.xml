@@ -49,7 +49,7 @@
             android:layout_height="match_parent"
             android:hint="@string/enter_password"
             android:inputType="textPassword"
-            android:visibility="gone" />
+            />
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

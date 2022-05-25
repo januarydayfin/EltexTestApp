@@ -1,15 +1,16 @@
 package com.krayapp.eltextestapp.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.krayapp.eltextestapp.Constant;
+import com.krayapp.eltextestapp.Fabric;
 import com.krayapp.eltextestapp.R;
 import com.krayapp.eltextestapp.databinding.ActivityMainBinding;
 import com.krayapp.eltextestapp.viewmodel.MainActivityViewModel;
@@ -25,20 +26,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.createMainRepo();
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
         sharedPref = getSharedPreferences(Constant.APP_PREFERENCES, Context.MODE_PRIVATE);
         clickListeners();
 
         if (sharedPref.contains(SHARED_PREF_TOKEN_KEY)){
             String token = sharedPref.getString(SHARED_PREF_TOKEN_KEY, "null");
-            checkToken(token);
+            //checkToken(token);
         }else{
-            viewModel.livedata.observe(this, this::checkToken);
+            viewModel.errorLiveData.observe(this,this::displayError);
         }
+        viewModel.livedata.observe(this, this::checkToken);
     }
 
     private void clickListeners() {
@@ -70,10 +72,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private void recordToken(String token) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(SHARED_PREF_TOKEN_KEY, token);
         editor.apply();
+    }
+    private void displayError(Throwable throwable){
+        Toast.makeText(this, throwable.toString(), Toast.LENGTH_SHORT).show();
     }
 }

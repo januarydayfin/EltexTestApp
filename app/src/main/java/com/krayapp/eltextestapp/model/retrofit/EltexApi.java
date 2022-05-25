@@ -5,7 +5,18 @@ import androidx.annotation.NonNull;
 import com.krayapp.eltextestapp.Constant;
 
 import java.io.IOException;
+import java.security.KeyStore;
+import java.security.cert.CertificateException;
+import java.util.Arrays;
 import java.util.Base64;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
@@ -17,7 +28,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EltexApi {
-    private static final OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new AuthInterceptor()).build();
 
     public static RetrofitService getApi() {
         return new Retrofit.Builder()
@@ -26,23 +36,5 @@ public class EltexApi {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(RetrofitService.class);
-    }
-
-    protected static class AuthInterceptor implements Interceptor {
-        private String credentials;
-
-        public AuthInterceptor() {
-            this.credentials = Credentials.basic("android-client", "password");
-        }
-
-        @NonNull
-        @Override
-        public Response intercept(@NonNull Chain chain) throws IOException {
-            Request request = chain.request();
-            Request authenticatedRequest = request.newBuilder()
-                    .header("Authorization", credentials)
-                    .build();
-            return chain.proceed(authenticatedRequest);
-        }
     }
 }

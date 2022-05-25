@@ -1,12 +1,15 @@
 package com.krayapp.eltextestapp.viewmodel;
 
+import android.widget.Toast;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.krayapp.eltextestapp.Fabric;
 import com.krayapp.eltextestapp.model.IMainRepo;
-import com.krayapp.movieapppoplib.Schedulers.ISchedulers;
+import com.krayapp.eltextestapp.schedulers.ISchedulers;
+
 
 import java.util.Base64;
 
@@ -16,11 +19,14 @@ import okhttp3.RequestBody;
 
 public class MainActivityViewModel extends ViewModel {
 
-    private IMainRepo repo = Fabric.createMainRepo;
+    private IMainRepo repo = Fabric.getRepo;
     private ISchedulers schedulers = Fabric.schedulers;
 
     private MutableLiveData<String> _livedata = new MutableLiveData();
     public LiveData<String> livedata = _livedata;
+
+    private MutableLiveData<Throwable> _errorLivedata = new MutableLiveData();
+    public LiveData<Throwable> errorLiveData = _errorLivedata;
 
     private CompositeDisposable disposables = new CompositeDisposable();
 
@@ -38,9 +44,11 @@ public class MainActivityViewModel extends ViewModel {
                         .getToken("Basic " + encoded, getBody(username, password))
                         .observeOn(schedulers.main())
                         .subscribeOn(schedulers.io())
-                        .subscribe(token -> _livedata.postValue(token.getAccess_token()), throwable -> _livedata.postValue("null"))
+                        .subscribe(token ->
+                                        _livedata.postValue(token.getAccess_token()),throwable ->
+                                _errorLivedata.postValue(throwable)
+                        )
         );
-
     }
 
     private RequestBody getBody(String username, String password) {
@@ -52,4 +60,6 @@ public class MainActivityViewModel extends ViewModel {
                 .build();
         return requestBody;
     }
+
+
 }

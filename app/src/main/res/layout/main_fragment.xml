@@ -50,6 +50,8 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <androidx.recyclerview.widget.RecyclerView
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/permView"
         android:id="@+id/perm_recycler"
         android:layout_width="match_parent"

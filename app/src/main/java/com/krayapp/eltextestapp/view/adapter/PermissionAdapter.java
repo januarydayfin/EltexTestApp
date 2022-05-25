@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.ListAdapter;
 
 import com.krayapp.eltextestapp.R;
 
-public class Adapter extends ListAdapter<String, PermissionViewHolder> {
-    public Adapter() {
+public class PermissionAdapter extends ListAdapter<String, PermissionViewHolder> {
+    public PermissionAdapter() {
         super(DIFF_CALLBACK);
     }
 

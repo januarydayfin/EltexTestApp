@@ -7,8 +7,9 @@ import com.krayapp.eltextestapp.model.TokenInfo;
 import com.krayapp.eltextestapp.model.retrofit.AuthBody;
 import com.krayapp.eltextestapp.model.retrofit.EltexApi;
 import com.krayapp.eltextestapp.model.retrofit.RetrofitService;
-import com.krayapp.movieapppoplib.Schedulers.ISchedulers;
-import com.krayapp.movieapppoplib.Schedulers.SimpleShedulers;
+import com.krayapp.eltextestapp.schedulers.ISchedulers;
+import com.krayapp.eltextestapp.schedulers.SimpleShedulers;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
