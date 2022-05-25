@@ -17,7 +17,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-public class MainActivityViewModel extends ViewModel {
+public class MainFragmentViewModel extends ViewModel {
 
     private IMainRepo repo = Fabric.getRepo;
     private ISchedulers schedulers = Fabric.schedulers;
@@ -45,8 +45,11 @@ public class MainActivityViewModel extends ViewModel {
                         .observeOn(schedulers.main())
                         .subscribeOn(schedulers.io())
                         .subscribe(token ->
-                                        _livedata.postValue(token.getAccess_token()),throwable ->
-                                _errorLivedata.postValue(throwable)
+                                        _livedata.postValue(token.getAccess_token()), throwable -> {
+                                    _livedata.postValue("null");
+                                    _errorLivedata.postValue(throwable);
+                                }
+
                         )
         );
     }

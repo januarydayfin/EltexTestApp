@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.krayapp.eltextestapp.databinding.MainFragmentBinding;
+import com.krayapp.eltextestapp.databinding.UserFragmentBinding;
 import com.krayapp.eltextestapp.model.AboutUserEntity;
 import com.krayapp.eltextestapp.view.adapter.PermissionAdapter;
 import com.krayapp.eltextestapp.viewmodel.UserFragmentViewModel;
@@ -22,7 +22,7 @@ public class UserFragment extends Fragment {
     private String token;
     private static final String ARG_KEY = "TOKEN ARG KEY";
 
-    private MainFragmentBinding binding;
+    private UserFragmentBinding binding;
     private UserFragmentViewModel viewModel;
 
     private PermissionAdapter adapter = new PermissionAdapter();
@@ -38,7 +38,7 @@ public class UserFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = MainFragmentBinding.inflate(getLayoutInflater());
+        binding = UserFragmentBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         return view;
     }
