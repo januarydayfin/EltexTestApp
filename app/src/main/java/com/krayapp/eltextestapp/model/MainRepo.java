@@ -1,5 +1,6 @@
 package com.krayapp.eltextestapp.model;
 
+import com.krayapp.eltextestapp.Fabric;
 import com.krayapp.eltextestapp.model.retrofit.AuthBody;
 import com.krayapp.eltextestapp.model.retrofit.RetrofitService;
 

@@ -35,13 +35,13 @@ public class Main {
                 .build();
         disposable.add(
                 // запрос юзера
-                repo
-                        .getUserInfo("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIiLCJleHAiOjE2NTM0NTg2ODMsImlhdCI6MTY1MzQ1NTA4MywianRpIjoiODYwN2E1OTItOGM5Yy00NGExLWIxZWUtM2I0YzczNjhlMzYxIn0.swvmNF6jUdEgwW1BpcNwhgSMNo_HIsTT3tabY5uoxAs")
-                        .subscribe(Main::setUser,throwable -> System.out.println(throwable.toString()))
+               repo
+                        /*.getUserInfo("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIiLCJleHAiOjE2NTM0NTg2ODMsImlhdCI6MTY1MzQ1NTA4MywianRpIjoiODYwN2E1OTItOGM5Yy00NGExLWIxZWUtM2I0YzczNjhlMzYxIn0.swvmNF6jUdEgwW1BpcNwhgSMNo_HIsTT3tabY5uoxAs")
+                        .subscribe(Main::setUser,throwable -> System.out.println(throwable.toString()))*/
 
                 //запрос токена
-                        /*.getToken("Basic YW5kcm9pZC1jbGllbnQ6cGFzc3dvcmQ=", requestBody)
-                        .subscribe(Main::setToken, throwable -> System.out.println(throwable.toString()))*/
+                        .getToken("Basic YW5kcm9pZC1jbGllbnQ6cGFzc3dvcmQ=", requestBody)
+                        .subscribe(Main::setToken, throwable -> System.out.println(throwable.toString()))
 
 
         );
