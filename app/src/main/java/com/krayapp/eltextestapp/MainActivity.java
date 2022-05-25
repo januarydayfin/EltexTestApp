@@ -1,4 +1,4 @@
-package com.krayapp.eltextestapp.view;
+package com.krayapp.eltextestapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,20 +8,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.krayapp.eltextestapp.Constant;
-import com.krayapp.eltextestapp.Fabric;
-import com.krayapp.eltextestapp.NetworkListener;
-import com.krayapp.eltextestapp.R;
+import com.krayapp.eltextestapp.view.MainFragment;
+import com.krayapp.eltextestapp.view.UserFragment;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
+    private SharedPreferences sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.createMainRepo();
         setContentView(R.layout.activity_main);
-        SharedPreferences sharedPref = getSharedPreferences(Constant.APP_PREFERENCES, Context.MODE_PRIVATE);
+        sharedPref = getSharedPreferences(Constant.APP_PREFERENCES, Context.MODE_PRIVATE);
         NetworkListener networkListener = new NetworkListener((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE));
 
         if (networkListener.isOnline()){
@@ -42,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        sharedPref.edit().clear().apply();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new MainFragment())
                 .commitAllowingStateLoss();
     }
-
-
 }
