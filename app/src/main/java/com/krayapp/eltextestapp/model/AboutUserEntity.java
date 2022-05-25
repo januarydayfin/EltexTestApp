@@ -18,7 +18,10 @@ public class AboutUserEntity {
     }
 
     public String getEmail() {
-        return email;
+        if (email == null ) {
+            return "Отсутствует";
+        }else
+            return email;
     }
     public String getRoleId() {
         return roleId;
